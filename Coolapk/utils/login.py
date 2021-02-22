@@ -29,7 +29,7 @@ def readKeyFile() -> Type[Account]:
     l = content.split("LoginForCoolapk")
     r = []
     if len(l) != 3:
-        raise LoginError(LoginErrorAttributes.KEYFILE_ERROR)
+        raise LoginError(LoginErrorAttributes.KEYFILE_ERROR.value)
     for i in l:
         r.append(base64.b64decode(i.encode()).decode())
     account = Account

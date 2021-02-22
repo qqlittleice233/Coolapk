@@ -43,9 +43,9 @@ class CoolapkApplication:
         sessid = req.cookies.get("SESSID")
         forward = req.cookies.get("forward")
         if len(sessid) == 0:
-            raise LoginError(LoginErrorAttributes.SESSID_NOT_FOUND)
+            raise LoginError(LoginErrorAttributes.SESSID_NOT_FOUND.value)
         if len(forward) == 0:
-            raise LoginError(LoginErrorAttributes.FORWARD_NOT_FOUND)
+            raise LoginError(LoginErrorAttributes.FORWARD_NOT_FOUND.value)
 
         cookies = {
             "SESSID": sessid,
@@ -54,7 +54,7 @@ class CoolapkApplication:
         req2 = requests.get("https://account.coolapk.com/auth/loginByCoolapk", headers=headers, cookies=cookies)
         reqHash = re.findall("requestHash : '(.*)',", req2.text)[0]
         if len(reqHash) == 0:
-            raise LoginError(LoginErrorAttributes.REQHASH_NOT_FOUND)
+            raise LoginError(LoginErrorAttributes.REQHASH_NOT_FOUND.value)
 
         login_headers = {
             'Host': 'account.coolapk.com',
@@ -153,4 +153,4 @@ class CoolapkApplication:
             user.fans = data['data']['fans']
             return user
         except KeyError:
-            raise GetDataError(GetDataErrorAttributes.KEY_ERROR)
+            raise GetDataError(GetDataErrorAttributes.KEY_ERROR.value)
